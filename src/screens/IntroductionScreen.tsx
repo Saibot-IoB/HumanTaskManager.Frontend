@@ -1,10 +1,20 @@
-﻿import { ScrollView, Text, StyleSheet } from 'react-native';
+﻿import { useEffect } from 'react';
+import { ScrollView, Text, StyleSheet, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Button from '../components/Button';
+import useTime from '../hooks/useTime';
 import { NavigationProps } from '../routes/RouteDefinitions';
 
 export default function IntroductionScreen() {
     const navigation = useNavigation<NavigationProps>();
+    const { getCurrentTime } = useTime();
+    useEffect(() => {
+        const time = getCurrentTime();
+        
+        if (time) {
+            Alert.alert(time.toISOString());
+        }
+    })
     
     return (
         <ScrollView style={{backgroundColor: 'white'}}>
